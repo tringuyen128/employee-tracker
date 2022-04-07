@@ -168,3 +168,37 @@ function viewAllEmpDep(depNamesArray) {
         empByDepTable.generalTableQuery(mainMenu);
     })
 }
+//This function will generate a table to console of employees by a chosen manager
+//a manager obj and an array of current manager names are delivered as parameters.
+function viewAllEmpManager(managerObj, namesArr) {
+    
+
+    const chosenManager = new InquirerFunctions(inquirerTypes[2], 'manager_choice', questions.searchByManager, namesArr);
+
+    inquirer.prompt([chosenManager.ask()]).then(userChoice => {
+
+        console.log(`Manager Searched By: ${userChoice.manager_choice}`);
+
+        let chosenManagerID = 0;
+        //This line grabs the chosen manager and gets the first name
+        const chosenManagerName = userChoice.manager_choice.split(" ", 2)
+
+        //This for loop then compares the last name with the last names of managers in managerObj delivered as parameters
+        //because the id for each manager is also in this obj.  When a match is fun the id of that match is set to chosenManagerID.
+        for (manager of managerObj) {
+            if (chosenManagerName[1] == manager.lastName) {
+                chosenManagerID = manager.ID;
+            }
+        }
+
+        const queryManagerSearch = `SELECT employee.last_name, employee.first_name, role.title, department.name
+                                    FROM employee
+                                    INNER JOIN role on role.id = employee.role_id
+                                    INNER JOIN department on department.id = role.department_id
+                                    WHERE employee.manager_id = (?) `
+
+        //The below code then creates an instance of sqlquery and runs a generalTableQuery() method on that instance.
+        const managerSearch = new SQLquery(queryManagerSearch, chosenManagerID);
+        managerSearch.generalTableQuery(mainMenu);
+    })
+}
