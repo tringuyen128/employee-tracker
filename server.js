@@ -136,3 +136,15 @@ function mainMenu() {
             }
         })
 }
+//This function will display a table with all the employees on the console
+function viewAllEmp() {
+    const query = `SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name
+                     FROM employee
+                     INNER JOIN role on role.id = employee.role_id
+                     INNER JOIN department on department.id = role.department_id;`
+
+    const empTable = new SQLquery(query);
+    //this line runs the generalTableQuery() method on the sqlquery instance declared by empTable variable.
+    //Mainmenu is delivered as a parameter because it is the function that is essentially used to take user to the next step.
+    empTable.generalTableQuery(mainMenu);
+}
