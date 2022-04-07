@@ -148,3 +148,23 @@ function viewAllEmp() {
     //Mainmenu is delivered as a parameter because it is the function that is essentially used to take user to the next step.
     empTable.generalTableQuery(mainMenu);
 }
+
+//This function is delivered a parameter that is an array of department names
+function viewAllEmpDep(depNamesArray) {
+    
+    
+    const departmentNamePrompt = new InquirerFunctions(inquirerTypes[2], 'department_Name', questions.viewAllEmpByDep, depNamesArray);
+    
+    //This line of code runs the instance of inquirerfunctions declared above in the inquirer prompt to deliver user response
+    inquirer.prompt(departmentNamePrompt.ask()).then(userResp => {
+
+        const query = `SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name
+                        FROM employee
+                        INNER JOIN role on role.id = employee.role_id
+                        INNER JOIN department on department.id = role.department_id AND department.name = ? ;`
+
+        const empByDepTable = new SQLquery(query, userResp.department_Name);
+        //this line runs the generalTableQuery() method on the sqlquery instance declared by empByDepTable variable.  This will generate a table to console.
+        empByDepTable.generalTableQuery(mainMenu);
+    })
+}
