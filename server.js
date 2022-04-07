@@ -1,15 +1,15 @@
-//Const used to initialize the npm modules used in this file
+//initialize the npm modules
 const inquirer = require('inquirer');
 const figlet = require('figlet');
 
-//This code calls various files in my lib folder that contain objects I reference
-const connection = require("./lib/SQL_login");
-const commandMenuChoices = require('./lib/commandMenu');
+//call files from lib folder
+const connection = require("./lib/loginsql");
+const commandMenuChoices = require('./lib/commandmenu');
 const questions = require('./lib/questions');
 
-//This code calls my classes
+//connects to my classes
 const InquirerFunctions = require('./lib/inquirer');
-const SQLquery = require('./lib/SQL_queries');
+const SQLquery = require('./lib/queriessql');
 
 //This array contains the inquirer prompt types I use
 const inquirerTypes = [
