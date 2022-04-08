@@ -1,7 +1,7 @@
 
 
 
-<h1 align="center">Employee-Tracker</h1>
+<h1 align="center">Employees-Tracker</h1>
   
 
    
