@@ -1,23 +1,20 @@
-//initialize the npm modules
 const inquirer = require('inquirer');
 const figlet = require('figlet');
 
-//call files from lib folder
 const connection = require("./lib/loginsql");
 const commandMenuChoices = require('./lib/commandmenu');
 const questions = require('./lib/questions');
 
-//connects to my classes
 const InquirerFunctions = require('./lib/inquirer');
 const SQLquery = require('./lib/queriessql');
 
-//This array contains the inquirer prompt types I use
+
 const inquirerTypes = [
     'input', 'confirm', 'list'
 ]
 
-//This line of code runs a synchronous function through the figlet npm that displays the designated text string in the console
-console.log(figlet.textSync('Employee Management', {
+//figlet display
+console.log(figlet.textSync('Employee Tracker', {
     font: 'Standard',
     horizontalLayout: 'default',
     verticalLayout: 'default'

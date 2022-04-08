@@ -1,8 +1,8 @@
-DROP DATABASE Employee_Management_db;
+DROP DATABASE  employees;
 
-CREATE DATABASE Employee_Management_db; 
+CREATE DATABASE employees 
 
-USE Employee_Management_db;
+USE employees;
 
 
 DROP TABLE IF EXISTS department;
