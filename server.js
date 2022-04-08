@@ -202,3 +202,39 @@ function viewAllEmpManager(managerObj, namesArr) {
         managerSearch.generalTableQuery(mainMenu);
     })
 }
+
+//Apply roles to generate all employees
+//An array of company roles is delivered as a parameter to the function
+function viewAllEmpRole(compRoles, actionChoice) {
+
+    //Create an instance of inquirerfunctions and then deliver it a prompt for inquirer.
+    const rolePrompt = new InquirerFunctions(inquirerTypes[2], 'role_Title', questions.viewAllEmpByRole, compRoles);
+    inquirer.prompt(rolePrompt.ask()).then(userResp => {
+
+        //This query selects all the columns top line of query using and INNER JOIN to get from role and department. 
+        // The AND role.title = (?) is what filters the results based on the role chosen by the user.
+        const query = `SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name
+                        FROM employee 
+                        INNER JOIN role on role.id = employee.role_id AND role.title = (?)
+                        INNER JOIN department on department.id = role.department_id;`;
+
+
+        const empByRoleTable = new SQLquery(query, userResp.role_Title);
+        empByRoleTable.generalTableQuery(mainMenu);
+    })
+}
+
+function viewAllManager() {
+
+   
+    const query = `SELECT employee.id, employee.first_name, employee.last_name, department.name
+                    FROM employee
+                    INNER JOIN role on role.id = employee.role_id
+                    INNER JOIN department on department.id = role.department_id
+                    WHERE employee.id IN ( SELECT employee.manager_id FROM employee );`;
+                    //This line above is what creates filtering by manager effect of table.  Only the selected results that have an
+                    //employee ID that is also in the table of employee manager ids from employee table will be returned
+
+    const managerTable = new SQLquery(query);
+    managerTable.generalTableQuery(mainMenu);
+}
