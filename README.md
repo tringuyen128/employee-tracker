@@ -9,13 +9,12 @@
 
 🔍 Using node.js application that uses user input from inquirer to populate an employee tracker database displaying members of a company.
 
-![Employee Tracker](./assets/screenshot.PNG)
+![Employee Tracker](./assets/screenshot.png)
   
 💻 Below is the gif showing the functionality of the application:
   
 ![Employee Tracker](./assets/demo.gif)
   
-🎥 The full movie file showing functionality of the application can be found [here](./assets/demo.webm)  
   
 ## User Story
   
